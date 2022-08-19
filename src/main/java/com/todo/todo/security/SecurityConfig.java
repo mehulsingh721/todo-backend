@@ -44,8 +44,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().configurationSource(corsConfigurationSource());
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-        http.authorizeRequests().antMatchers("/api/login/**", "/api/register/**","/api/token/refresh/**", "/api/gmail/**", "/api/job/**", "/api/unsubscribe/prospect/**", "/api/collecting/**").permitAll();
-        http.authorizeRequests().antMatchers("/api/campaigns/**", "api/prospects/**", "/api/users/**", "/api/mail/**", "/api/csv/**", "/api/creds/**", "/api/signature/**", "/api/deliveribility/**", "/api/unsubscribe/**", "/api/reports/**", "/api/emails/**", "/api/intent/**").hasAnyAuthority("ROLE_USER");
+        http.authorizeRequests().antMatchers("/api/tasks/**").permitAll();
+        http.authorizeRequests().antMatchers().hasAnyAuthority("ROLE_USER");
         http.authorizeRequests().anyRequest().authenticated();
         http.addFilter(customAuthenticationFilter);
         http.addFilterBefore(new CustomAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -54,7 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("https://lemty.wurnace.com", "https://tranquil-chamber-43778.herokuapp.com"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:5173"));
         configuration.addAllowedHeader("*");
         configuration.addAllowedMethod("*");
         configuration.setAllowCredentials(true);

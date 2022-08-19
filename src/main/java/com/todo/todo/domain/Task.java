@@ -1,13 +1,15 @@
 package com.todo.todo.domain;
 
+import java.io.Serializable;
 import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+
 @Entity
-public class Task {
+public class Task implements Serializable{
 	@Id
 	@Column(name = "id", length = 8, unique = true, nullable = false)
 	private String id = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
@@ -36,14 +38,5 @@ public class Task {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    @Override
-    public String toString() {
-        return "Task{" +
-                "id='" + id + '\'' +
-                ", task='" + task + '\'' +
-                ", status='" + status + '\'' +
-                '}';
     }
 }
